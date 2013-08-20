@@ -5,6 +5,8 @@ import (
 	"math"
 	"math/rand"
 	"time"
+	"unicode"
+	"unicode/utf8"
 )
 
 func main() {
@@ -130,10 +132,79 @@ func main() {
 	var ff FF = 4
 	var ft FF = 5
 	dd := ff + ft
-	fmt.Printf("%v.....%T", dd, dd)
+	fmt.Printf("%v.....%T\n", dd, dd)
+
+	var str STR = "ss"
+	fmt.Printf("%s.....%T\n", str, str)
+
+	//字符的使用
+	var ch int = '\u0041'
+	var ch1 int = '\u03b2'
+	var ch2 int = '\U00023674'
+	fmt.Printf("%d,%d,%d \n", ch, ch1, ch2)
+	fmt.Printf("%c,%c,%c\n", ch, ch1, ch2)
+	fmt.Printf("%X,%X,%X\n", ch, ch1, ch2)
+	fmt.Printf("%U,%U,%U\n", ch, ch1, ch2)
+
+	//判断字符的有效性
+	fmt.Println(unicode.IsDigit(int32(ch)))
+	fmt.Println(unicode.IsLetter(int32(ch)))
+	fmt.Println(unicode.IsSpace(int32(ch)))
+
+	//字符串,go中额字符串用的是UTF8进行编码的
+	//所以导致一个字符需要的字节范围是1~4
+	//string有两种定义方式
+	//1. 通过""双引号来进行定义,但是里面转义会执行
+	var str1 string = "hello \t world \n welcome to \u0002 china"
+	fmt.Printf("%s....%T", str1, str1)
+
+	fmt.Println()
+	//2. 通过``来进行定义,里面的东西不会转义
+	var str2 string = `hello \t world \n l love you \u0004 china
+			very much \U00000001`
+	fmt.Printf("%s.....%T\n", str2, str2)
+
+	//string 的比较是== <= >= != > < 比较的是字节
+	//不像java比较的内存地址,因为go中的string是值类型,不是引用类型
+	var array []int = []int{3, 5, 6, 7}
+
+	fmt.Println("int address:", &array[2])
+
+	//字符串也可以用下标来获取他的字节,但是一般用于全部都是ascii码
+	var str5 = "china i love you "
+	fmt.Printf("%c......%T", str5[3], str5[3])
+	// fmt.Printf("%d......%T", &str5[2], &str5[2]) // 字符串的字符的不能地址
+	fmt.Printf("%d......%T\n", &str5, &str5)
+
+	str6 := "begining of the string" +
+		"second part of string"
+
+	fmt.Printf("%s....%T\n", str6, str6)
+
+	str7 := "hello"
+	str7 += "world"
+	fmt.Printf("%s.....%T\n", str7, str7)
+
+	//+来连接string不是最高效的方式,应该用strings.Join 或者更高效用byte-buffer
+
+	var str8 = "asSASA ddd dsjkdsjs dk"
+	bytes,size := stringsutil(str8)
+	fmt.Println("bytes and zie :" , bytes,size)
+
+	var str9 = "asSASA ddd dsjkdsjsこん dk"
+	bytes2,size2 := stringsutil(str9)
+	fmt.Println("bytes and zies2:" ,bytes2,size2)
+}
+
+//计算string的字节数和字符数
+func stringsutil(str string) (int, int) {
+	var bytes = len(str)
+	var char = utf8.RuneCountInString(str)
+	return bytes, char
 }
 
 //自定义一个字符串来进行继承
+type STR string
 
 type FF int
 
