@@ -19,7 +19,7 @@ func main() {
 //show bitwise
 func bitwisetest() {
 	for i := 0; i < 10; i++ {
-		fmt.Print("the bit repreesion is %b\n" , i)
+		fmt.Print("the bit repreesion is %b\n", i)
 	}
 }
 
