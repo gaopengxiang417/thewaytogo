@@ -15,6 +15,8 @@ func main() {
 	fmt.Println()
 	bitwisetest()
 	//test
+	//testto
+	//four
 }
 
 //show bitwise
