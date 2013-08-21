@@ -14,6 +14,7 @@ func main() {
 	towertest()
 	fmt.Println()
 	bitwisetest()
+	//test
 }
 
 //show bitwise
