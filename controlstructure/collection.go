@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"sort"
+	"unicode/utf8"
 )
 
 var fabs [50]uint64
@@ -105,6 +107,49 @@ func main() {
 
 	var llsds = []int{1, 2, 3, 4, 5, 6, 7, 8, 89, 9}
 	remove_slice(llsds, 4, 7)
+
+	//转换string为byte数组
+	var str_slice = "love 中国 this is"
+	c := []byte(str_slice)
+	fmt.Println(len(c))
+	for index, value := range c {
+		fmt.Println(index, ":", value)
+	}
+	fmt.Println(utf8.RuneCountInString(str_slice))
+
+	//截取一个字符串的子集,不过他的数字指定的是指节的位置
+	sub_string := str_slice[7:19]
+	fmt.Println(sub_string)
+
+	string_replce()
+
+	slice_sort()
+}
+
+//排序的算法
+func slice_sort() {
+	var int_slice = []int{2, 3, 543, 56, 767, 4, 54, 6, 7, 8}
+	sort.Ints(int_slice)
+	fmt.Println(sort.IntsAreSorted(int_slice))
+	for _, value := range int_slice {
+		fmt.Printf("%d\t", value)
+	}
+	//search
+	var index = sort.SearchInts(int_slice, 767)
+	if index == len(int_slice) {
+		fmt.Println("not search")
+	}
+	fmt.Println(index)
+}
+
+//string的替换,string,替换必须转换为字节数组,替换,然后再转换回来
+func string_replce() {
+	var str = "this is a 中国"
+	bytes := []byte(str)
+	bytes[0] = 'H'
+	s := string(bytes)
+	fmt.Println(s)
+
 }
 func remove_slice(a []int, start, end int) {
 	if start > end || start < 0 || end > cap(a) {
