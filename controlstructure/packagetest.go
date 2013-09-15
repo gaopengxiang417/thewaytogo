@@ -2,7 +2,11 @@ package main
 
 import (
 	"container/list"
+	"custom"
+	even "even"
+	fib "fibonacci"
 	"fmt"
+	"greeting"
 	"math"
 	"math/big"
 	"regexp"
@@ -19,6 +23,20 @@ func main() {
 	lock_test()
 
 	math_big_test()
+
+	fmt.Println(custom.PackInt)
+	fmt.Println(custom.Vis_String())
+
+	//调用外部的包
+	fmt.Println("is afternonn:", greeting.IsPm())
+	//是否是偶数
+	fmt.Println("is even:", even.Is_even(9))
+	fmt.Println("is odd:", even.Is_odd(9))
+
+	//计算fabi函数
+	for i := 0; i < 20; i++ {
+		fmt.Printf("%d\t", fib.Fab_nacci(i))
+	}
 }
 
 //math 和 big包的使用

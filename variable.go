@@ -12,6 +12,7 @@ import (
 var china = 44 //全局变量可以声明,但是不使用
 //初始化函数是指go在调用的时候首先执行的函数
 var abc string
+
 func init() {
 	fmt.Println("start...........")
 }
