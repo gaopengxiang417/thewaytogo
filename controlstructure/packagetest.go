@@ -17,6 +17,33 @@ func main() {
 	regexp_test()
 
 	lock_test()
+
+	math_big_test()
+}
+
+//math 和 big包的使用
+func math_big_test() {
+	first := big.NewInt(math.MaxInt64)
+	second := first
+	third := big.NewInt(18232)
+	fouth := big.NewInt(1)
+
+	fmt.Println(fouth.Mul(first, second))
+	fmt.Println(fouth.Add(first, third))
+	fmt.Println(fouth.Div(first, second))
+
+	//有理数的使用
+	rationone := big.NewRat(math.MaxInt64, 232)
+	rationtwo := big.NewRat(-1212, math.MaxInt64)
+	rationthird := big.NewRat(100, 23)
+	rationfouth := big.NewRat(1, 1)
+
+	fmt.Println(rationone)
+	fmt.Println(rationtwo)
+	fmt.Println(rationthird)
+	fmt.Println(rationfouth)
+
+	fmt.Println(rationfouth.Add(rationone, rationtwo))
 }
 
 func lock_test() {
