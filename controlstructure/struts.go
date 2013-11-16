@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -45,6 +46,56 @@ func main() {
 	fmt.Printf("%v\n", inter1)
 	fmt.Printf("%v\n", inter2)
 	fmt.Printf("%v\n", inter3)
+
+	//测试不同的初始化方法在内存中的布局
+	//1.
+	var p1 Person
+	p1.firstname = "p1 firstname"
+	p1.lastname = "p1 lastname"
+	upPerson(&p1)
+	fmt.Printf("the person is %s %s\n", p1.firstname, p1.lastname)
+
+	//2
+	p2 := new(Person)
+	p2.firstname = "p2 firstname"
+	p2.lastname = "p2 lastname"
+	upPerson(p2)
+	fmt.Printf("the person is %s %s\n", p2.firstname, p2.lastname)
+
+	//3
+	p3 := &Person{"p3 firstname", "p3 lastanem"}
+	upPerson(p3)
+	fmt.Printf("the person is %s %s\n", p3.firstname, p3.lastname)
+
+	//转化
+	a := number{53.3434}
+	b := nr{42.2323}
+
+	var c = b
+	fmt.Println(a, b, c)
+
+	// var d number = b
+	var d number = a
+	fmt.Println(d)
+
+	var e = number(b)
+	fmt.Print(e)
+}
+
+type nr number
+
+type number struct {
+	f float32
+}
+
+func upPerson(person *Person) {
+	person.firstname = strings.ToUpper(person.firstname)
+	person.lastname = strings.ToUpper(person.lastname)
+}
+
+type Person struct {
+	firstname string
+	lastname  string
 }
 
 type Interval struct {
